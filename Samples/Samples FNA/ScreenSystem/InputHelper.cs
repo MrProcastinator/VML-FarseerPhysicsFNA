@@ -130,7 +130,7 @@ namespace FarseerPhysics.Samples.ScreenSystem
 
             if (_handleVirtualStick)
             {
-#if XBOX
+#if XBOX || VITA
                 VirtualState = GamePad.GetState(PlayerIndex.One);
 #elif WINDOWS
                 VirtualState = GamePad.GetState(PlayerIndex.One).IsConnected ? GamePad.GetState(PlayerIndex.One) : HandleVirtualStickWin();

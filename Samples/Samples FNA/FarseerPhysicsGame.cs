@@ -27,10 +27,15 @@ namespace FarseerPhysics.Samples
             _graphics.PreferredBackBufferHeight = 480;
             ConvertUnits.SetDisplayUnitToSimUnitRatio(16f);
             IsFixedTimeStep = false;
+#elif VITA
+            _graphics.PreferredBackBufferWidth = 960;
+            _graphics.PreferredBackBufferHeight = 544;
+            ConvertUnits.SetDisplayUnitToSimUnitRatio(16f);
+            IsFixedTimeStep = false;
 #endif
 #if WINDOWS
             _graphics.IsFullScreen = false;
-#elif XBOX || WINDOWS_PHONE
+#elif XBOX || WINDOWS_PHONE || VITA
             _graphics.IsFullScreen = true;
 #endif
 

@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using FarseerPhysics.Samples.Demos.Prefabs;
 using FarseerPhysics.Samples.ScreenSystem;
 using Microsoft.Xna.Framework;
@@ -49,7 +49,7 @@ namespace FarseerPhysics.Samples.Demos
 
 #if WINDOWS || XBOX
             _spiderweb = new Spiderweb(World, HiddenBody, Vector2.Zero, ConvertUnits.ToSimUnits(12), 5, 12);
-#elif WINDOWS_PHONE
+#elif WINDOWS_PHONE || VITA
             _spiderweb = new Spiderweb(World, HiddenBody, Vector2.Zero, ConvertUnits.ToSimUnits(8), 5, 12);
 #endif
             _spiderweb.LoadContent(ScreenManager.Content);

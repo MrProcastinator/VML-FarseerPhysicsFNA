@@ -13,7 +13,7 @@ namespace FarseerPhysics.Samples.ScreenSystem
     {
 #if WINDOWS || XBOX
         private const float NumEntries = 15;
-#elif WINDOWS_PHONE
+#elif WINDOWS_PHONE || VITA
         private const float NumEntries = 9;
 #endif
         private List<MenuEntry> _menuEntries = new List<MenuEntry>();
