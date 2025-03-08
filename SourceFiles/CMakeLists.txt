@@ -125,17 +125,17 @@ else()
 endif()
 
 set(FPFNA_REFERENCES
-    FNA.dll
     System.dll
     System.Xml.dll
 )
 
 set(LIBRARY_NAME FarseerPhysicsFna)
+# Full library
 compile_mono_assembly_aot(
     ASSEMBLY ${LIBRARY_NAME}
     SOURCES ${FPFNA_SOURCES}
     DEFINES ${FPFNA_DEFINES}
-    REFERENCES ${FPFNA_REFERENCES}
+    REFERENCES ${FPFNA_REFERENCES} FNA.dll
     FLAGS unsafe ${MONO_RELEASE_TYPE}
 )
 add_library(VML${LIBRARY_NAME} STATIC
@@ -143,16 +143,65 @@ add_library(VML${LIBRARY_NAME} STATIC
     ${LIBRARY_NAME}.dll.s
 )
 
-add_dependencies(VML${LIBRARY_NAME} FPFNADependencies)
+# No Theorafile
+compile_mono_assembly_aot(
+    ASSEMBLY ${LIBRARY_NAME}.NoTheora
+    SOURCES ${FPFNA_SOURCES}
+    DEFINES ${FPFNA_DEFINES}
+    REFERENCES ${FPFNA_REFERENCES} FNA.NoTheora.dll
+    FLAGS unsafe ${MONO_RELEASE_TYPE}
+)
+add_library(VML${LIBRARY_NAME} STATIC
+    ${LIBRARY_NAME}_NoTheora.c
+    ${LIBRARY_NAME}.dll.s
+)
+
+# No Song
+compile_mono_assembly_aot(
+    ASSEMBLY ${LIBRARY_NAME}.NoSong
+    SOURCES ${FPFNA_SOURCES}
+    DEFINES ${FPFNA_DEFINES}
+    REFERENCES ${FPFNA_REFERENCES} FNA.NoSong.dll
+    FLAGS unsafe ${MONO_RELEASE_TYPE}
+)
+add_library(VML${LIBRARY_NAME}_NoSong STATIC
+    ${LIBRARY_NAME}.c
+    ${LIBRARY_NAME}.dll.s
+)
+
+# No Theorafile and no song
+compile_mono_assembly_aot(
+    ASSEMBLY ${LIBRARY_NAME}.NoTheora.NoSong
+    SOURCES ${FPFNA_SOURCES}
+    DEFINES ${FPFNA_DEFINES}
+    REFERENCES ${FPFNA_REFERENCES} FNA.NoTheora.NoSong.dll
+    FLAGS unsafe ${MONO_RELEASE_TYPE}
+)
+add_library(VML${LIBRARY_NAME}_NoTheora_NoSong STATIC
+    ${LIBRARY_NAME}.c
+    ${LIBRARY_NAME}.dll.s
+)
+
+add_dependencies(VML${LIBRARY_NAME} FPFNADependencies FPFNADependencies_Full)
+add_dependencies(VML${LIBRARY_NAME} FPFNADependencies FPFNADependencies_NoTheora)
+add_dependencies(VML${LIBRARY_NAME} FPFNADependencies FPFNADependencies_NoSong)
+add_dependencies(VML${LIBRARY_NAME} FPFNADependencies FPFNADependencies_NoTheora_NoSong)
 
 install(
-  TARGETS VML${LIBRARY_NAME}
+  TARGETS
+  	VML${LIBRARY_NAME}
+	VML${LIBRARY_NAME}_NoTheora
+	VML${LIBRARY_NAME}_NoSong
+	VML${LIBRARY_NAME}_NoTheora_NoSong
   DESTINATION lib
 )
 
 install(
   FILES 
     ${CMAKE_BINARY_DIR}/${LIBRARY_NAME}.dll
+	${CMAKE_BINARY_DIR}/${LIBRARY_NAME}.NoTheora.dll
+	${CMAKE_BINARY_DIR}/${LIBRARY_NAME}.NoSong.dll
+	${CMAKE_BINARY_DIR}/${LIBRARY_NAME}.NoTheora.NoSong.dll
   DESTINATION lib/mono
 )
 

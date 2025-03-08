@@ -34,7 +34,22 @@ compile_mono_external_import(
 
 compile_mono_external_import(
     ASSEMBLY FNA.dll
-    TARGET FPFNADependencies
+    TARGET FPFNADependenciesFull
+)
+
+compile_mono_external_import(
+    ASSEMBLY FNA.dll
+    TARGET FPFNADependenciesNoTheora
+)
+
+compile_mono_external_import(
+    ASSEMBLY FNA.dll
+    TARGET FPFNADependenciesNoSong
+)
+
+compile_mono_external_import(
+    ASSEMBLY FNA.dll
+    TARGET FPFNADependenciesNoTheoraNoSong
 )
 
 add_subdirectory(SourceFiles)
